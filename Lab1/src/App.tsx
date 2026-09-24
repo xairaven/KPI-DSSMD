@@ -1,49 +1,101 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
+import { useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
+import type { Applicant, Report } from "./types";
 import "./App.css";
 
-function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
+function ApplicantTable({ title, rows }: { title: string; rows: Applicant[] }) {
+  return (
+    <section className="panel">
+      <h2>
+        {title} <span className="count">({rows.length})</span>
+      </h2>
+      {rows.length === 0 ? (
+        <p className="empty">— немає —</p>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>ПІБ</th>
+              <th>Оцінки</th>
+              <th>Сер. бал</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((a) => (
+              <tr key={a.id}>
+                <td>{a.id}</td>
+                <td>
+                  {a.last_name} {a.first_name} {a.patronymic}
+                </td>
+                <td>{a.grades.join(", ")}</td>
+                <td>{a.average}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </section>
+  );
+}
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
+function App() {
+  const [threshold, setThreshold] = useState(7);
+  const [topCount, setTopCount] = useState(3);
+  const [report, setReport] = useState<Report | null>(null);
+
+  async function compute() {
+    setReport(await invoke<Report>("build_report", { threshold, topCount }));
   }
+
+  useEffect(() => {
+    compute();
+  }, []);
 
   return (
     <main className="container">
-      <h1>Welcome to Tauri + React</h1>
-
-      <div className="row">
-        <a href="https://vite.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
+      <h1>Лаб. 1 — Абітурієнт</h1>
 
       <form
-        className="row"
+        className="controls"
         onSubmit={(e) => {
           e.preventDefault();
-          greet();
+          compute();
         }}
       >
-        <input
-          id="greet-input"
-          onChange={(e) => setName(e.currentTarget.value)}
-          placeholder="Enter a name..."
-        />
-        <button type="submit">Greet</button>
+        <label>
+          Поріг серед. балу
+          <input
+            type="number"
+            step="0.1"
+            value={threshold}
+            onChange={(e) => setThreshold(Number(e.currentTarget.value))}
+          />
+        </label>
+        <label>
+          N (топ)
+          <input
+            type="number"
+            min={1}
+            value={topCount}
+            onChange={(e) => setTopCount(Number(e.currentTarget.value))}
+          />
+        </label>
+        <button type="submit">Обчислити</button>
       </form>
-      <p>{greetMsg}</p>
+
+      {report && (
+        <>
+          <ApplicantTable title="Усі абітурієнти" rows={report.all} />
+          <ApplicantTable title="Незадовільні оцінки" rows={report.failing} />
+          <ApplicantTable
+            title={`Середній бал вище ${threshold}`}
+            rows={report.above_threshold}
+          />
+          <ApplicantTable title={`Топ-${topCount} за середнім балом`} rows={report.top_n} />
+          <ApplicantTable title="Напівпрохідний бал" rows={report.borderline} />
+        </>
+      )}
     </main>
   );
 }

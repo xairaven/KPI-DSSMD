@@ -1,9 +1,14 @@
 [package]
 name = "lab1"
-version = "0.1.0"
-description = "A Tauri App"
-authors = ["you"]
-edition = "2021"
+version = "0.0.1"
+authors = ["Oleksandr Kovalov <oleksandr.kovalov.work@gmail.com>"]
+
+edition = "2024"
+
+categories = ["science"]
+readme = "../README.md"
+license = "MIT"
+repository = "https://github.com/xairaven/KPI-DSSMD"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -23,7 +28,6 @@ tauri-plugin-opener = "2"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 
-
 # Read the optimization guideline for more details: https://tauri.app/concept/size/#cargo-configuration
 [profile.release]
 codegen-units = 1
@@ -31,3 +35,22 @@ lto = true
 opt-level = 3
 panic = "abort"
 strip = true
+
+[lints.clippy]
+pedantic = { level = "warn", priority = -1 }
+nursery = { level = "warn", priority = -1 }
+collapsible_if = "warn"
+collapsible_else_if = "warn"
+collapsible_match = "warn"
+collapsible_str_replace = "warn"
+expect_used = "deny"
+inconsistent_struct_constructor = "allow"
+indexing_slicing = "deny"
+missing_errors_doc = "allow"
+must_use_candidate = "allow"
+panic = "deny"
+unwrap_used = "deny"
+
+[lints.rust]
+unused_doc_comments = "allow"
+unsafe_code = "deny"
