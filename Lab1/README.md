@@ -1,7 +1,24 @@
-# Tauri + React + Typescript
+# Лаб. 1 — Абітурієнт
 
-This template should help get you started developing with Tauri, React and Typescript in Vite.
+Android-додаток на Tauri (Rust + React/TypeScript). Домен: абітурієнт
+(ID, Прізвище, Ім'я, По-батькові, Адреса, Телефон, Оцінки).
 
-## Recommended IDE Setup
+Уся логіка (середній бал, фільтрація, сортування) — на боці Rust
+(`src-tauri/src/`), фронтенд лише відображає дані.
 
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+## Структура
+
+- `src-tauri/src/applicant.rs` — модель `Applicant` та похідні запити
+  (незадовільні оцінки, поріг середнього балу, напівпрохідний бал).
+- `src-tauri/src/sample.rs` — тестовий масив із 10 абітурієнтів.
+- `src-tauri/src/report.rs` — команда `build_report`, яку викликає фронтенд.
+- `src/App.tsx` — дві сторінки: "Звіт" (обчислення за варіантом) та
+  "Абітурієнти" (повний список із контактними даними).
+
+## Запуск
+
+```sh
+pnpm install
+pnpm tauri android dev   # Android-емулятор
+pnpm tauri dev            # десктоп, для швидкої перевірки
+```
