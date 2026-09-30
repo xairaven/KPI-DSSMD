@@ -1,0 +1,151 @@
+:root {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+
+  color: #0f0f0f;
+  background-color: #f6f6f6;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 720px;
+  padding: 2rem 1rem 4rem;
+}
+
+h1 {
+  text-align: center;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.nav button.active {
+  border-color: #396cd8;
+  background-color: #396cd8;
+  color: #ffffff;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.85em;
+}
+
+input,
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  color: #0f0f0f;
+  background-color: #ffffff;
+  transition: border-color 0.25s;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+
+input {
+  width: 6em;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:hover {
+  border-color: #396cd8;
+}
+button:active {
+  border-color: #396cd8;
+  background-color: #e8e8e8;
+}
+
+.panel {
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  padding: 0.75rem 1rem 1rem;
+  margin-bottom: 1rem;
+  overflow-x: auto;
+}
+
+.panel h2 {
+  font-size: 1em;
+  margin: 0 0 0.6rem;
+}
+
+.count {
+  color: #8a8a8a;
+  font-weight: 400;
+}
+
+.empty {
+  color: #8a8a8a;
+  margin: 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9em;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.3em 0.5em;
+  border-bottom: 1px solid #eaeaea;
+}
+
+th {
+  color: #8a8a8a;
+  font-weight: 500;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: #f6f6f6;
+    background-color: #2f2f2f;
+  }
+
+  input,
+  button {
+    color: #ffffff;
+    background-color: #0f0f0f98;
+  }
+  button:active {
+    background-color: #0f0f0f69;
+  }
+
+  .panel {
+    border-color: #4a4a4a;
+  }
+
+  th,
+  td {
+    border-bottom-color: #3f3f3f;
+  }
+}
