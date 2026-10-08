@@ -1,4 +1,4 @@
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize)]
 pub struct Applicant {
@@ -52,6 +52,29 @@ impl From<&Applicant> for ApplicantView {
             applicant: a.clone(),
             average: a.average_grade(),
         }
+    }
+}
+
+/// Form payload for adding/editing an applicant (no `id` — the repository
+/// assigns that on add, and keeps it unchanged on update).
+#[derive(Debug, Clone, Deserialize)]
+pub struct ApplicantInput {
+    pub last_name: String,
+    pub first_name: String,
+    pub patronymic: String,
+    pub address: String,
+    pub phone: String,
+    pub grades: Vec<u8>,
+}
+
+impl Applicant {
+    pub fn update_by_input(&mut self, input: ApplicantInput) {
+        self.last_name = input.last_name;
+        self.first_name = input.first_name;
+        self.patronymic = input.patronymic;
+        self.address = input.address;
+        self.phone = input.phone;
+        self.grades = input.grades;
     }
 }
 
