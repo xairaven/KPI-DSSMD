@@ -2,7 +2,7 @@
 
 // State<T> must be taken by value in every command here — that's Tauri's
 // calling convention, not a real ownership need.
-#![allow(clippy::needless_pass_by_value)]
+#![allow(clippy::needless_pass_by_value, reason = "Tauri's convention")]
 
 use crate::applicant::ApplicantView;
 use crate::repository::Repository;
