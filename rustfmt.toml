@@ -1,19 +1,16 @@
-# Stable configuration
+# Stable options only (the pinned toolchain is stable). Only non-default values are listed.
 edition = "2024"
+style_edition = "2024"
+newline_style = "Unix"
 
-# Width and alignment
+# Width
 max_width = 90
-hard_tabs = false
-tab_spaces = 4
-
-# Imports
-reorder_imports = true
-reorder_modules = true
-
-# Misc
 chain_width = 60
+
+# Layout
 fn_params_layout = "Compressed"
 match_block_trailing_comma = true
-merge_derives = true
+
+# Shorthands
 use_field_init_shorthand = true
 use_try_shorthand = true
