@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Applicant {
     pub id: u32,
     pub last_name: String,
@@ -20,7 +20,10 @@ impl Applicant {
             return 0.0;
         }
         let sum = f64::from(self.grades.iter().sum::<u8>());
-        #[allow(clippy::cast_precision_loss)]
+        #[allow(
+            clippy::cast_precision_loss,
+            reason = "There will be no loss of precision"
+        )]
         let avg = sum / self.grades.len() as f64;
 
         (avg * 100.0).round() / 100.0

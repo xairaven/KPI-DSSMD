@@ -15,7 +15,10 @@ pub struct Repository {
 
 impl Repository {
     pub fn new() -> Self {
-        let applicants = sample::get_applicants();
+        Self::from_applicants(sample::get_applicants())
+    }
+
+    pub fn from_applicants(applicants: Vec<Applicant>) -> Self {
         let next_id = applicants.iter().map(|a| a.id).max().unwrap_or(0) + 1;
         Self {
             applicants,
