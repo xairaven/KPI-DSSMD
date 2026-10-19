@@ -58,6 +58,18 @@ impl Repository {
 
         Ok(applicant.clone())
     }
+
+    pub fn delete(&mut self, id: u32) -> Result<(), String> {
+        let index = self
+            .applicants
+            .iter()
+            .position(|a| a.id == id)
+            .ok_or_else(|| format!("Абітурієнта з ID {id} не знайдено"))?;
+
+        self.applicants.remove(index);
+
+        Ok(())
+    }
 }
 
 impl Default for Repository {

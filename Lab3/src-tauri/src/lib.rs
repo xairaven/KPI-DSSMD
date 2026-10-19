@@ -31,6 +31,7 @@ pub fn run() {
             screen::students::list_applicants,
             screen::students::add_applicant,
             screen::students::update_applicant,
+            screen::students::delete_applicant,
         ])
         .build(tauri::generate_context!());
 

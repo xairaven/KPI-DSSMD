@@ -31,3 +31,11 @@ pub fn update_applicant(
     let mut repo = state.lock().unwrap_or_else(PoisonError::into_inner);
     repo.update(id, input).map(|a| ApplicantView::from(&a))
 }
+
+#[tauri::command]
+pub fn delete_applicant(
+    state: State<'_, Mutex<Repository>>, id: u32,
+) -> Result<(), String> {
+    let mut repo = state.lock().unwrap_or_else(PoisonError::into_inner);
+    repo.delete(id)
+}

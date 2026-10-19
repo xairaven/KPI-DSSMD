@@ -48,6 +48,22 @@ export function Students() {
     setError(null);
   }
 
+  async function remove(id: number) {
+    if (!window.confirm(`Видалити абітурієнта з ID ${id}?`)) {
+      return;
+    }
+
+    try {
+      await invoke("delete_applicant", { id });
+      setRows((prev) => (prev ? prev.filter((a) => a.id !== id) : prev));
+      if (editingId === id) {
+        cancelEdit();
+      }
+    } catch (err) {
+      setError(String(err));
+    }
+  }
+
   async function submit(e: FormEvent) {
     e.preventDefault();
     const input: ApplicantInput = {
@@ -174,6 +190,9 @@ export function Students() {
                   <td>
                     <button type="button" onClick={() => startEdit(a)}>
                       Редагувати
+                    </button>
+                    <button type="button" onClick={() => remove(a.id)}>
+                      Видалити
                     </button>
                   </td>
                 </tr>
