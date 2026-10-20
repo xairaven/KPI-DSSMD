@@ -20,6 +20,10 @@ export function Home() {
         <Link className="menu-item" to="/top-n">
           (в) Топ-N та напівпрохідний бал
         </Link>
+        <Link className="menu-item" to="/search">
+          Пошук
+          <span>Button, TextView, EditText, ListView</span>
+        </Link>
       </nav>
     </main>
   );

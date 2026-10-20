@@ -28,6 +28,7 @@ pub fn run() {
             screen::failing::get_failing,
             screen::threshold::get_above_threshold,
             screen::top::get_top_n,
+            screen::search::search_applicants,
             screen::students::list_applicants,
             screen::students::add_applicant,
             screen::students::update_applicant,

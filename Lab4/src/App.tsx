@@ -4,6 +4,7 @@ import { Students } from "./screens/Students";
 import { Failing } from "./screens/Failing";
 import { Threshold } from "./screens/Threshold";
 import { TopN } from "./screens/TopN";
+import { Search } from "./screens/Search";
 import "./App.css";
 
 // HashRouter gives each screen a real URL and browser-history back-stack
@@ -19,6 +20,7 @@ function App() {
         <Route path="/failing" element={<Failing />} />
         <Route path="/threshold" element={<Threshold />} />
         <Route path="/top-n" element={<TopN />} />
+        <Route path="/search" element={<Search />} />
       </Routes>
     </HashRouter>
   );

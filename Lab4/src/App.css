@@ -198,6 +198,36 @@ th {
   font-weight: 500;
 }
 
+.list-view {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.list-view li {
+  padding: 0.5em 0.7em;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.list-view li:hover {
+  border-color: #396cd8;
+}
+
+.list-view li.selected {
+  background-color: #396cd81a;
+  border-color: #396cd8;
+}
+
+.text-view {
+  margin: 0;
+  line-height: 1.6;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     color: #f6f6f6;
