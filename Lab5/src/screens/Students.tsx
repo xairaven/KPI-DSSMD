@@ -24,6 +24,8 @@ export function Students() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [form, setForm] = useState(emptyForm);
   const [error, setError] = useState<string | null>(null);
+  const [qrFor, setQrFor] = useState<number | null>(null);
+  const [qrSvg, setQrSvg] = useState<string | null>(null);
 
   useEffect(() => {
     invoke<Applicant[]>("list_applicants").then(setRows);
@@ -46,6 +48,22 @@ export function Students() {
     setEditingId(null);
     setForm(emptyForm);
     setError(null);
+  }
+
+  async function showQr(id: number) {
+    if (qrFor === id) {
+      setQrFor(null);
+      setQrSvg(null);
+      return;
+    }
+
+    try {
+      const svg = await invoke<string>("generate_qr", { id });
+      setQrFor(id);
+      setQrSvg(svg);
+    } catch (err) {
+      setError(String(err));
+    }
   }
 
   async function remove(id: number) {
@@ -194,6 +212,9 @@ export function Students() {
                     <button type="button" onClick={() => remove(a.id)}>
                       Видалити
                     </button>
+                    <button type="button" onClick={() => showQr(a.id)}>
+                      {qrFor === a.id ? "Сховати QR" : "QR-код"}
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -203,6 +224,13 @@ export function Students() {
           <p className="empty">— немає —</p>
         )}
       </section>
+
+      {qrFor !== null && qrSvg && (
+        <section className="panel">
+          <h2>QR-код абітурієнта ID {qrFor}</h2>
+          <div className="qr-code" dangerouslySetInnerHTML={{ __html: qrSvg }} />
+        </section>
+      )}
     </main>
   );
 }

@@ -1,5 +1,5 @@
 pub mod failing;
-pub mod search;
+pub mod qr;
 pub mod students;
 pub mod threshold;
 pub mod top;

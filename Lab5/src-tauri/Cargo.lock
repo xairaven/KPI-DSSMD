@@ -1935,6 +1935,7 @@ name = "lab5"
 version = "0.0.1"
 dependencies = [
  "log",
+ "qrcode",
  "serde",
  "serde_json",
  "tauri",
@@ -2709,6 +2710,11 @@ checksum = "985e7ec9bb745e6ce6535b544d84d6cd6f7ad8bd711c398938ae983b91a766d9"
 dependencies = [
  "unicode-ident",
 ]
+
+[[package]]
+name = "qrcode"
+version = "0.14.1"
+source = "git+https://github.com/kennytm/qrcode-rust?tag=v0.14.1#0695f037c5b43999a6cdf08984974b8d0388ad78"
 
 [[package]]
 name = "quick-xml"

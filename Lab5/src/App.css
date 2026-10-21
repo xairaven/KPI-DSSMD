@@ -228,6 +228,17 @@ th {
   line-height: 1.6;
 }
 
+.qr-code {
+  display: flex;
+  justify-content: center;
+}
+
+.qr-code svg {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     color: #f6f6f6;

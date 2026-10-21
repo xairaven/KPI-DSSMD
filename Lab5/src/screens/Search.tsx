@@ -1,28 +1,42 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { Link } from "react-router-dom";
+import Fuse from "fuse.js";
 import type { Applicant } from "../types";
 
-// Demonstrates a Button, TextView, EditText, and ListView on a single screen (Lab 4 assignment).
-// An EditText (search field) and a Button ("Search") filter the ListView (the list below);
-// clicking an item in the list populates
-// the TextView (a read-only details section) — all four elements are visible simultaneously.
+// Demonstrates Button, TextView, EditText, and ListView on one screen
+// (Lab 4 assignment). Lab 5 adds fuse.js here (via the pnpm/npm registry)
+// for typo-tolerant fuzzy matching on last names — the other new library
+// this lab adds, the `csv` crate on the Students screen, is pulled in via
+// a git dependency instead, to compare the two installation methods.
 export function Search() {
   const [query, setQuery] = useState("");
-  const [rows, setRows] = useState<Applicant[] | null>(null);
+  const [all, setAll] = useState<Applicant[] | null>(null);
   const [selectedId, setSelectedId] = useState<number | null>(null);
 
-  async function search() {
-    const result = await invoke<Applicant[]>("search_applicants", { query });
-    setRows(result);
-    if (!result.some((a) => a.id === selectedId)) {
-      setSelectedId(null);
-    }
-  }
-
   useEffect(() => {
-    search();
+    invoke<Applicant[]>("list_applicants").then(setAll);
   }, []);
+
+  const fuse = useMemo(
+    () => new Fuse(all ?? [], { keys: ["last_name"], threshold: 0.4 }),
+    [all],
+  );
+
+  const rows = useMemo(() => {
+    if (!all) {
+      return null;
+    }
+    if (query.trim() === "") {
+      return all;
+    }
+    return fuse.search(query).map((result) => result.item);
+  }, [all, query, fuse]);
+
+  function clear() {
+    setQuery("");
+    setSelectedId(null);
+  }
 
   const selected = rows?.find((a) => a.id === selectedId) ?? null;
 
@@ -33,26 +47,22 @@ export function Search() {
       </Link>
       <h1>Пошук абітурієнтів</h1>
       <p className="subtitle">
-        EditText + Button + ListView + TextView в одному екрані
+        EditText + Button + ListView + TextView, нечіткий пошук через fuse.js
       </p>
 
       {/* EditText + Button */}
-      <form
-        className="controls"
-        onSubmit={(e) => {
-          e.preventDefault();
-          search();
-        }}
-      >
+      <form className="controls" onSubmit={(e) => e.preventDefault()}>
         <label>
-          Прізвище містить
+          Прізвище (допускає помилки)
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.currentTarget.value)}
           />
         </label>
-        <button type="submit">Пошук</button>
+        <button type="button" onClick={clear}>
+          Очистити
+        </button>
       </form>
 
       {/* ListView */}
