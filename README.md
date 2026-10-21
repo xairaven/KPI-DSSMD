@@ -12,3 +12,4 @@ University Labs.
 - [**(2)** Design patterns for mobile devices](./Lab2)
 - [**(3)** Mobile Technologies and Tooling](./Lab3)
 - [**(4)** Emulators and Android resources](./Lab4)
+- [**(5)** Application Architecture and Supporting Libraries](./Lab5)
