@@ -8,7 +8,7 @@ use repository::Repository;
 use std::sync::{Mutex, PoisonError};
 use tauri::{AppHandle, Manager, RunEvent, WindowEvent};
 
-const DATA_FILE_NAME: &str = "applicants.json";
+const DATA_FILE_NAME: &str = "applicants.db";
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
