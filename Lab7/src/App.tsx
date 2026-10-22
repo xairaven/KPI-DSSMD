@@ -5,6 +5,7 @@ import { Failing } from "./screens/Failing";
 import { Threshold } from "./screens/Threshold";
 import { TopN } from "./screens/TopN";
 import { Search } from "./screens/Search";
+import { Nearest } from "./screens/Nearest";
 import "./App.css";
 
 // HashRouter gives each screen a real URL and browser-history back-stack
@@ -21,6 +22,7 @@ function App() {
         <Route path="/threshold" element={<Threshold />} />
         <Route path="/top-n" element={<TopN />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/nearest" element={<Nearest />} />
       </Routes>
     </HashRouter>
   );

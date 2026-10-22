@@ -26,3 +26,9 @@ export interface TopNResult {
   top: Applicant[];
   borderline: Applicant[];
 }
+
+export interface NearestUniversity {
+  name: string;
+  address: string;
+  distance_km: number;
+}

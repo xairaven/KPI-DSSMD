@@ -24,6 +24,10 @@ export function Home() {
           Пошук
           <span>Button, TextView, EditText, ListView</span>
         </Link>
+        <Link className="menu-item" to="/nearest">
+          Найближча приймальна комісія
+          <span>Геолокація</span>
+        </Link>
       </nav>
     </main>
   );

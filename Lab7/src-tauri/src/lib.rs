@@ -1,4 +1,5 @@
 mod applicant;
+mod geo;
 mod repository;
 mod sample;
 mod screen;
@@ -11,16 +12,24 @@ use tauri::{AppHandle, Manager, RunEvent, WindowEvent};
 const DATA_FILE_NAME: &str = "applicants.db";
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
+#[allow(
+    clippy::large_stack_frames,
+    reason = "tauri::generate_context!() expands into a large const value, not our code"
+)]
 pub fn run() {
     let app = tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_log::Builder::new().build())
+        .plugin(tauri_plugin_fs::init())
         .setup(|app| {
             let data_dir = app.path().app_data_dir()?;
             std::fs::create_dir_all(&data_dir)?;
 
             let applicants = storage::load(&data_dir.join(DATA_FILE_NAME));
             app.manage(Mutex::new(Repository::from_applicants(applicants)));
+
+            #[cfg(mobile)]
+            app.handle().plugin(tauri_plugin_geolocation::init())?;
 
             Ok(())
         })
@@ -33,6 +42,7 @@ pub fn run() {
             screen::students::update_applicant,
             screen::students::delete_applicant,
             screen::qr::generate_qr,
+            screen::nearest::find_nearest_university,
         ])
         .build(tauri::generate_context!());
 
