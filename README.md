@@ -13,3 +13,4 @@ University Labs.
 - [**(3)** Mobile Technologies and Tooling](./Lab3)
 - [**(4)** Emulators and Android resources](./Lab4)
 - [**(5)** Application Architecture and Supporting Libraries](./Lab5)
+- [**(6)** Databases in Android](./Lab6)
