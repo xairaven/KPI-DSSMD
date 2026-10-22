@@ -14,3 +14,4 @@ University Labs.
 - [**(4)** Emulators and Android resources](./Lab4)
 - [**(5)** Application Architecture and Supporting Libraries](./Lab5)
 - [**(6)** Databases in Android](./Lab6)
+- [**(7)** Geolocation](./Lab7)
